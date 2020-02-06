@@ -177,6 +177,13 @@ This is done with the regular expression stored in
   (interactive (list
     (completing-read "File to insert id from: "
       (deft-find-all-files-no-prefix))))
+  (save-excursion
+    (let ((id (concat zetteldeft-link-indicator
+                      (zetteldeft--lift-id (file-name-base (buffer-file-name))))))
+      (find-file file)
+      (goto-char (point-max))
+      (insert "\n")
+      (insert id)))
   (insert (concat zetteldeft-link-indicator (zetteldeft--lift-id file))))
 
 (defun zetteldeft-find-file-full-title-insert (file)
