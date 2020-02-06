@@ -191,6 +191,13 @@ This is done with the regular expression stored in
   (interactive (list
     (completing-read "File to insert full title from: "
       (deft-find-all-files-no-prefix))))
+  (save-excursion
+    (let ((id (concat zetteldeft-link-indicator
+                      (zetteldeft--id-to-full-title (zetteldeft--lift-id (file-name-base (buffer-file-name)))))))
+      (find-file file)
+      (goto-char (point-max))
+      (insert "\n")
+      (insert id)))
   (insert (concat zetteldeft-link-indicator (file-name-base file))))
 
 (declare-function evil-insert-state "evil")
